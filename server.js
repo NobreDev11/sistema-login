@@ -1,34 +1,17 @@
-// Importa os pacotes necessários
 const express = require('express');
-const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const usuariosRoutes = require('./routes/usuariosRoutes');
 
-// Cria a aplicação Express
-const app = express();
-
-// Configura o Express para entender JSON
-app.use(express.json());
-
-// Ativa o CORS para permitir conexões externas (frontend)
-app.use(cors());
-
-// Configura as variáveis de ambiente
 dotenv.config();
 
-// Conecta ao banco de dados MongoDB
-connectDB();
+const app = express();
+app.use(express.json());
 
-// Importa as rotas de usuário
-const usuarioRoutes = require('./routes/usuarioRoutes');
+// Rotas
+app.use('/api/usuarios', usuariosRoutes);
 
-// Ativa as rotas no caminho /api/usuarios
-app.use('/api/usuarios', usuarioRoutes);
-
-// Define a porta do servidor
-const PORT = process.env.PORT || 5000;
-
-// Inicia o servidor
+// Inicialização do servidor
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
